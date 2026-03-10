@@ -1,7 +1,7 @@
 let tg = window.Telegram.WebApp;
 tg.expand();
 
-const socket = io(); // Socket.io ulanadi
+const socket = io(https://shashka-app.vercel.app/); // Socket.io ulanadi
 
 // Telegram foydalanuvchi ismini olish
 const username = tg.initDataUnsafe?.user?.username || "Anonim";
