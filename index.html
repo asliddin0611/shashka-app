@@ -3,16 +3,73 @@
 <head>
 <meta charset="UTF-8">
 <title>Shashka</title>
+
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<style>
+
+body{
+font-family: Arial;
+background:#1e1e1e;
+color:white;
+text-align:center;
+margin-top:40px;
+}
+
+.menu button{
+display:block;
+width:200px;
+margin:10px auto;
+padding:15px;
+font-size:18px;
+border:none;
+border-radius:10px;
+background:#2ea6ff;
+color:white;
+}
+
+</style>
+
 </head>
 
 <body>
 
-<h2>Shashka o'yiniga xush kelibsiz</h2>
+<h2>Shashka o'yini</h2>
 
-<button onclick="alert('Oyin boshlanadi')">
-O'yinni boshlash
-</button>
+<div class="menu">
+
+<button onclick="startGame()">🎮 O'yinni boshlash</button>
+
+<button onclick="profile()">👤 Profil</button>
+
+<button onclick="settings()">⚙️ Sozlamalar</button>
+
+<button onclick="info()">ℹ️ Ma'lumot</button>
+
+</div>
+
+<script>
+
+let tg = window.Telegram.WebApp
+tg.expand()
+
+function startGame(){
+alert("O'yin boshlanmoqda")
+}
+
+function profile(){
+alert("Profil bo'limi")
+}
+
+function settings(){
+alert("Sozlamalar")
+}
+
+function info(){
+alert("Shashka o'yini mini app")
+}
+
+</script>
 
 </body>
 </html>
