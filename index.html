@@ -2,74 +2,101 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Shashka</title>
-
+<title>Shashka Online</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
-
-body{
-font-family: Arial;
-background:#1e1e1e;
-color:white;
-text-align:center;
-margin-top:40px;
-}
-
-.menu button{
-display:block;
-width:200px;
-margin:10px auto;
-padding:15px;
-font-size:18px;
-border:none;
-border-radius:10px;
-background:#2ea6ff;
-color:white;
-}
-
+body{font-family: Arial; background:#1e1e1e; color:white; text-align:center; margin-top:40px;}
+.menu button{display:block; width:250px; margin:10px auto; padding:15px; font-size:18px; border:none; border-radius:10px; background:#2ea6ff; color:white;}
+#subMenu{display:none;}
+#onlinePlayers, #invites{margin-top:20px;}
+.player{margin:5px; padding:10px; background:#333; border-radius:8px; display:flex; justify-content:space-between; align-items:center;}
+.player button{background:#ff9500; border:none; padding:5px 10px; border-radius:5px; color:white;}
 </style>
 
 </head>
-
 <body>
 
-<h2>Shashka o'yini</h2>
+<h2>Shashka Online</h2>
 
 <div class="menu">
-
-<button onclick="startGame()">🎮 O'yinni boshlash</button>
-
+<button onclick="openGameMenu()">🎮 O'yinni boshlash</button>
 <button onclick="profile()">👤 Profil</button>
-
 <button onclick="settings()">⚙️ Sozlamalar</button>
-
 <button onclick="info()">ℹ️ Ma'lumot</button>
+</div>
 
+<div id="subMenu">
+<h3>Online O'yinchilar</h3>
+<div id="onlinePlayers"></div>
+
+<h3>Takliflar</h3>
+<div id="invites"></div>
 </div>
 
 <script>
+let tg = window.Telegram.WebApp;
+tg.expand();
 
-let tg = window.Telegram.WebApp
-tg.expand()
+// Simulyatsiya uchun online o‘yinchilar ro‘yxati
+let onlineUsers = [
+  {id:1, name:"Ali"},
+  {id:2, name:"Vali"},
+  {id:3, name:"Gul"}
+];
 
-function startGame(){
-alert("O'yin boshlanmoqda")
+let invitesList = [];
+
+// Asosiy menyudan o‘yinni boshlash
+function openGameMenu(){
+  document.getElementById("subMenu").style.display = "block";
+  renderOnlinePlayers();
+  renderInvites();
 }
 
-function profile(){
-alert("Profil bo'limi")
+// Online o‘yinchilar ro‘yxatini chizish
+function renderOnlinePlayers(){
+  let container = document.getElementById("onlinePlayers");
+  container.innerHTML = "";
+  onlineUsers.forEach(user=>{
+    let div = document.createElement("div");
+    div.className = "player";
+    div.innerHTML = `
+      <span>${user.name}</span>
+      <button onclick="sendInvite(${user.id},'${user.name}')">O'yin taklif qilish</button>
+    `;
+    container.appendChild(div);
+  });
 }
 
-function settings(){
-alert("Sozlamalar")
+// Taklif qilgach ro‘yxatga qo‘shish
+function sendInvite(id,name){
+  invitesList.push(name);
+  renderInvites();
+  alert(name + " ga o'yin taklif qilindi!");
 }
 
-function info(){
-alert("Shashka o'yini mini app")
+// Takliflar ro‘yxatini chizish
+function renderInvites(){
+  let container = document.getElementById("invites");
+  container.innerHTML = "";
+  if(invitesList.length===0){
+    container.innerHTML = "<i>Hozircha taklif yo‘q</i>";
+    return;
+  }
+  invitesList.forEach(name=>{
+    let div = document.createElement("div");
+    div.className = "player";
+    div.textContent = name;
+    container.appendChild(div);
+  });
 }
+
+// Profil va boshqa bo‘limlar
+function profile(){ alert("Profil bo'limi"); }
+function settings(){ alert("Sozlamalar"); }
+function info(){ alert("Shashka o'yini mini app"); }
 
 </script>
-
 </body>
 </html>
